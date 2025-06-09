@@ -1,0 +1,42 @@
+let arrayData = [];
+const inserirDadosHtml = (data) => {
+    let html = "";
+    data.forEach((produtos, posicao) => {
+        html += `<div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${produtos.nome}</h5>
+                        <p class="card-text">${produtos.descricao}</p>
+                        <button class="btn btn-danger btn-sm w-100 mt-3 deletar-btn" data-index="${posicao}">Deletar item</button>
+                    </div>
+                    </div>`;
+    });
+    
+    document.querySelector("#crud").innerHTML = html;
+
+    const deletarBotao = document.querySelectorAll(".deletar-btn");
+    deletarBotao.forEach(botao => {
+        botao.addEventListener("click", (event) => {
+            const posicao = event.target.getAttribute("data-index");
+            deletarItem(posicao)
+        });
+    });
+}
+
+const salvarProduto = () => {
+    let nomeProduto = document.querySelector("#nome");
+    let descricaoProduto = document.querySelector("#descricao");
+    if (nomeProduto.value || descricaoProduto.value) {
+        arrayData.push({
+            'nome': nomeProduto.value,
+            'descricao': descricaoProduto.value
+        })
+        inserirDadosHtml(arrayData);
+        nomeProduto.value = "";
+        descricaoProduto.value = "";
+    }
+}
+
+const deletarItem = (index) => {
+        arrayData.splice(index, 1);
+        inserirDadosHtml(arrayData);
+}
