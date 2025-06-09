@@ -1,1 +1,1 @@
-# codigo-linter
+# Aqui será o código-linter, que vai ser copiado
